@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router";
+import { Button, Form, Segment, Message } from "semantic-ui-react";
 
-export default class Login extends Component {
+class Login extends Component {
 
   render () {
     return (
-      <div className="Login">
-        <h2>Login, Buddy!</h2>
-      </div>
+      <Segment>
+        <Form size='mini' key='mini'>
+          <Form.Group widths='equal'>
+            <Form.Input type='username' placeholder='username' label='username' name='username'/>
+            <Form.Input type='password' placeholder='password' label='password' name='password'/>
+          </Form.Group>
+          <Button type='submit'>Login</Button>
+        </Form>
+      </Segment>
     );
   }
 }
+
+
+export default withRouter(Login)
