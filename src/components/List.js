@@ -5,9 +5,7 @@ const List = (props) => {
   return(
     <div className='lists'>
       {props.listTasks.map((list) => {
-        
-        }
-        )
+        return <Task key={list.id} attributes={list} />
       })}
       <button onClick={()=> {props.clickFunction()}}>Click Me</button>
     </div>
