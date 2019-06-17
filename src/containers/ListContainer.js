@@ -1,12 +1,13 @@
 import React from 'react'
 import List from '../components/List'
-import Task from '../components/Task'
+import CreateTaskForm from '../components/CreateTaskForm'
 
 export default class ListContainer extends React.Component{
 
   constructor(){
     super()
     this.state = {
+      lists: [],
       formDisplay: false,
       form : {
         description: "",
@@ -23,13 +24,38 @@ export default class ListContainer extends React.Component{
   }
 
   componentDidMount(){
+    fetch('http://localhost:3000/lists')
+    .then(resp => resp.json())
+    .then(listObj => (
+      this.setState({
+        lists: listObj
+      })
+    ))
+  }
+
+  handleSubmit = (event) =>{
+    event.preventDefault()
+    this.setState({
+      formDisplay: !this.state.formDisplay,
+      form: {
+        description: event.currentTarget.childNodes[1].value,
+        due: event.currentTarget.childNodes[3].value,
+        priority: event.currentTarget.childNodes[5].value
+      }
+    })
+  }
+
+  renderLists = () => {
+    this.state.lists.map((list) => (
+      <List clickFunction={this.handleAddTask} listTasks={list.tasks}/>
+    ))
   }
 
   render(){
     return(
       <div>
       This Contains all the Lists
-        {this.state.formDisplay ? <Task /> : <List clickFunction={this.handleAddTask}/>}
+        {this.state.formDisplay ? <CreateTaskForm handleSubmit={this.handleSubmit}/> : this.renderLists()}
       </div>
     )
   }
