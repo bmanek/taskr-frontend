@@ -7,12 +7,18 @@ export default class UserPage extends Component {
 
   constructor() {
     super()
+    this.state = {
+
+    }
   }
 
   render () {
     return (
       <div className="UserPage">
         <UserProfile />
+        <CreateList />
+        <ListContainer />
+
       </div>
     );
   }

@@ -21,6 +21,7 @@ export default class App extends Component {
       <Router>
         <div className="App">
           <Route exact path ='/login' render={()=> <Login />} />
+          <Route exact path ='/profile' render={()=> <UserPage />}/>
         </div>
       </Router>
     );
