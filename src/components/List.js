@@ -5,7 +5,7 @@ const List = (props) => {
   return(
     <div className='lists'>
       <ul>
-        <li>Lister</li>
+        
       </ul>
     </div>
   )
