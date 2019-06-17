@@ -7,15 +7,15 @@ const Task = (props) => {
       <div class="fields">
         <div class="field">
           <label>Description</label>
-          <input type="text" placeholder="Description">
+          <input type="text" placeholder="Description"/>
         </div>
         <div class="field">
           <label>Due Date</label>
-          <input type="text" placeholder="Due Date">
+          <input type="text" placeholder="Due Date"/>
         </div>
         <div class="field">
           <label>Last name</label>
-          <input type="text" placeholder="Last Name">
+          <input type="text" placeholder="Last Name"/>
         </div>
       </div>
     </div>
@@ -23,3 +23,5 @@ const Task = (props) => {
 
   )
 }
+
+export default Task

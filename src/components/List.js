@@ -6,6 +6,7 @@ const List = (props) => {
       <ul>
 
       </ul>
+      <button onClick={()=> {props.clickFunction()}}>Click Me</button>
     </div>
   )
 }

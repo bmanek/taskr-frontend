@@ -4,15 +4,15 @@ import Task from '../components/Task'
 
 export default class ListContainer extends React.Component{
 
-  handleAddTask = () => {
-    return <Task />
-  }
+  handleAddTask = () => (
+    console.log('Hi')
+  )
 
   render(){
     return(
       <div>
       This Contains all the Lists
-      <List />
+      <List clickFunction={this.handleAddTask}/>
       </div>
     )
   }
