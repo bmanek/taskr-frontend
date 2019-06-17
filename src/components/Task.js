@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const Task = (props) => {
 
   return(
@@ -11,11 +10,11 @@ const Task = (props) => {
           <label>Description</label>
           <input type="text" placeholder="Description"/>
         </div>
-        <div class="field">
+        <div className="field">
           <label>Due Date</label>
           <input type="text" placeholder="Due Date"/>
         </div>
-        <div class="field">
+        <div className="field">
           <label>Last name</label>
           <input type="text" placeholder="Last Name"/>
           <input type="submit"></input>
