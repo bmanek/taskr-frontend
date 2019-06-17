@@ -46,8 +46,8 @@ export default class ListContainer extends React.Component{
   }
 
   renderLists = () => {
-    this.state.lists.map((list) => (
-      <List clickFunction={this.handleAddTask} listTasks={list.tasks}/>
+    return this.state.lists.map((list) => (
+      <List key={list.id} clickFunction={this.handleAddTask} listTasks={list.tasks}/>
     ))
   }
 
