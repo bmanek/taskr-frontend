@@ -1,19 +1,18 @@
 import React from 'react'
 
-
 const Task = (props) => {
   return(
-    <div class="ui form">
-      <div class="fields">
-        <div class="field">
+    <div className="ui form">
+      <div className="fields">
+        <div className="field">
           <label>Description</label>
           <input type="text" placeholder="Description"/>
         </div>
-        <div class="field">
+        <div className="field">
           <label>Due Date</label>
           <input type="text" placeholder="Due Date"/>
         </div>
-        <div class="field">
+        <div className="field">
           <label>Last name</label>
           <input type="text" placeholder="Last Name"/>
         </div>

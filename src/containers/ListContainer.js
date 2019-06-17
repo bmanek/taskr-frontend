@@ -13,6 +13,7 @@ export default class ListContainer extends React.Component{
       <div>
       This Contains all the Lists
       <List clickFunction={this.handleAddTask}/>
+      <Task />
       </div>
     )
   }
