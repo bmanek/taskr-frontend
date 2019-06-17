@@ -4,15 +4,32 @@ import Task from '../components/Task'
 
 export default class ListContainer extends React.Component{
 
-  handleAddTask = () => (
-    console.log('Hi')
-  )
+  constructor(){
+    super()
+    this.state = {
+      formDisplay: false,
+      form : {
+        description: "",
+        due: "",
+        priority: ""
+      }
+    }
+  }
+
+  handleAddTask = () => {
+    this.setState({
+      formDisplay: !this.state.formDisplay
+    })
+  }
+
+  componentDidMount(){
+  }
 
   render(){
     return(
       <div>
       This Contains all the Lists
-      <List clickFunction={this.handleAddTask}/>
+        {this.state.formDisplay ? <Task /> : <List clickFunction={this.handleAddTask}/>}
       </div>
     )
   }

@@ -8,7 +8,7 @@ export default class UserPage extends Component {
   constructor() {
     super()
     this.state = {
-      
+
     }
   }
 
@@ -23,8 +23,3 @@ export default class UserPage extends Component {
     );
   }
 }
-
-
-
-// <ListContainer /> We haven't built this yeeetttt.....
-// <CreateList /> We haven't built this yeeetttt.....
