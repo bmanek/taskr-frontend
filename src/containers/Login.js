@@ -6,7 +6,7 @@ class Login extends Component {
   render () {
     return (
       <Segment>
-        <Form>
+        <Form onChange={this.props.handleLoginInput} onSubmit={this.props.handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Input type='username' placeholder='username' label='username' name='username'/>
             <Form.Input type='password' placeholder='password' label='password' name='password'/>

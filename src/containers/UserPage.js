@@ -8,11 +8,12 @@ export default class UserPage extends Component {
   constructor() {
     super()
     this.state = {
-
+      
     }
   }
 
   render () {
+    console.log(this.props)
     return (
       <div className="UserPage">
         <UserProfile />
