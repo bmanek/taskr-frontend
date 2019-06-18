@@ -8,7 +8,7 @@ const List = (props) => {
       {props.listTasks.tasks.map((list) => {
         return <Task key={list.id} attributes={list} />
       })}
-      <button onClick={()=> {props.clickFunction()}}>Add Task</button>
+      <button onClick={()=> {props.handleAddTask(props.id)}}>Add Task</button>
     </div>
   )
 }

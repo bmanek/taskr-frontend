@@ -12,14 +12,18 @@ export default class ListContainer extends React.Component{
       form : {
         description: "",
         due: "",
-        priority: ""
+        priority: "",
+        listId: ''
       }
     }
   }
 
-  handleAddTask = () => {
+  handleAddTask = (id) => {
     this.setState({
-      formDisplay: !this.state.formDisplay
+      formDisplay: !this.state.formDisplay,
+      form: {
+        listId: id
+      }
     })
   }
 
@@ -40,14 +44,31 @@ export default class ListContainer extends React.Component{
       form: {
         description: event.currentTarget.childNodes[1].value,
         due: event.currentTarget.childNodes[3].value,
-        priority: event.currentTarget.childNodes[5].value
+        priority: event.currentTarget.childNodes[5].value,
       }
+    }, ()=>{
+      fetch(`http://localhost:3000/tasks`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          description: this.state.form.description,
+          due: this.state.form.due,
+          priority: this.state.form.priority,
+          list_id: this.state.form.listId
+        })
+      })
+      .then(resp => resp.json())
+      .then(data => {debugger})
     })
+
   }
 
   renderLists = () => {
     return this.state.lists.map((list) => (
-      <List key={list.id} clickFunction={this.handleAddTask} listTasks={list} />
+      <List id={list.id} key={list.id} handleAddTask={this.handleAddTask} listTasks={list} />
     ))
   }
 
@@ -67,7 +88,7 @@ export default class ListContainer extends React.Component{
     return(
       <div>
       This Contains all the Lists
-        {this.state.formDisplay ? <CreateTaskForm removeForm={this.removeForm} deleteTask={this.deleteTask} handleSubmit={this.handleSubmit}/> : this.renderLists()}
+        {this.state.formDisplay ? <CreateTaskForm removeForm={this.removeForm} deleteTask={this.deleteTask} handleSubmit={this.handleSubmit} listId={this.state.form.listId}/> : this.renderLists()}
       </div>
     )
   }
