@@ -47,7 +47,7 @@ export default class ListContainer extends React.Component{
 
   renderLists = () => {
     return this.state.lists.map((list) => (
-      <List key={list.id} clickFunction={this.handleAddTask} listTasks={list.tasks} />
+      <List key={list.id} clickFunction={this.handleAddTask} listTasks={list} />
     ))
   }
 
@@ -57,11 +57,17 @@ export default class ListContainer extends React.Component{
     })
   }
 
+  removeForm = () => {
+    this.setState({
+      formDisplay: false
+    })
+  }
+
   render(){
     return(
       <div>
       This Contains all the Lists
-        {this.state.formDisplay ? <CreateTaskForm deleteTask={this.deleteTask} handleSubmit={this.handleSubmit}/> : this.renderLists()}
+        {this.state.formDisplay ? <CreateTaskForm removeForm={this.removeForm} deleteTask={this.deleteTask} handleSubmit={this.handleSubmit}/> : this.renderLists()}
       </div>
     )
   }

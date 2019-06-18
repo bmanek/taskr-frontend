@@ -2,9 +2,8 @@ import React from 'react'
 
 
 const Task = (props) => {
-  console.log(props)
   return(
-    <div className="task card">
+    <div className="task card" key={props.key}>
       <br></br>
       <button>Edit Your Crap!</button>
       <div>Description: {props.attributes.description}</div>

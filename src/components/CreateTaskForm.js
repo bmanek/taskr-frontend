@@ -19,6 +19,8 @@ const CreateTaskForm = (props) => {
           <input type="text" placeholder="Priority"/>
 
         <input type="submit"></input>
+        <br></br>
+        <button onClick={() => props.removeForm()}>Go Back</button>
         </form>
       </div>
 

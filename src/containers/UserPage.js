@@ -13,7 +13,6 @@ export default class UserPage extends Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <div className="UserPage">
         <UserProfile user={this.props.user}/>
