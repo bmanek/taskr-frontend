@@ -23,15 +23,15 @@ export default class ListContainer extends React.Component{
     })
   }
 
-  componentDidMount(){
-    fetch('http://localhost:3000/lists')
-    .then(resp => resp.json())
-    .then(listObj => (
-      this.setState({
-        lists: listObj
-      })
-    ))
-  }
+  // componentDidMount(){
+  //   fetch('http://localhost:3000/lists')
+  //   .then(resp => resp.json())
+  //   .then(listObj => (
+  //     this.setState({
+  //       lists: listObj
+  //     })
+  //   ))
+  // }
 
   handleSubmit = (event) =>{
     event.preventDefault()
@@ -46,8 +46,9 @@ export default class ListContainer extends React.Component{
   }
 
   renderLists = () => {
-    return this.state.lists.map((list) => (
-      <List key={list.id} clickFunction={this.handleAddTask} listTasks={list.tasks}/>
+    debugger
+    return this.props.user.map((list) => (
+      <List key={list.id} clickFunction={this.handleAddTask} listTasks={list.tasks} />
     ))
   }
 
@@ -55,7 +56,7 @@ export default class ListContainer extends React.Component{
     return(
       <div>
       This Contains all the Lists
-        {this.state.formDisplay ? <CreateTaskForm handleSubmit={this.handleSubmit}/> : this.renderLists()}
+        {this.state.formDisplay ? <CreateTaskForm deleteTask={this.deleteTask} handleSubmit={this.handleSubmit}/> : this.renderLists()}
       </div>
     )
   }

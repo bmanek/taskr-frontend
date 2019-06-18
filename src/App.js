@@ -4,7 +4,7 @@ import Login from './containers/Login'
 import UserPage from './containers/UserPage'
 import {
   BrowserRouter as Router,
-  Route
+  Route, Redirect
 } from 'react-router-dom';
 
 export default class App extends Component {
@@ -40,8 +40,9 @@ export default class App extends Component {
       <Router>
         <div className="App">
           <Route exact path ='/profile' render={()=> <UserPage user={this.state.user}/>}/>
-          <Route path ='/' render={()=> <Login handleLoginInput={this.handleLoginInput} handleSubmit={this.handleSubmit}/>} />
-
+          <Route path ='/' render={()=>
+            (this.state.user ? (<Redirect to='/profile'/>
+          ) : (<Login handleLoginInput={this.handleLoginInput} handleSubmit={this.handleSubmit}/>))} />
         </div>
       </Router>
     );

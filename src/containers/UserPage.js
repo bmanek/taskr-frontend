@@ -8,7 +8,7 @@ export default class UserPage extends Component {
   constructor() {
     super()
     this.state = {
-      
+
     }
   }
 
@@ -16,9 +16,9 @@ export default class UserPage extends Component {
     console.log(this.props)
     return (
       <div className="UserPage">
-        <UserProfile />
+        <UserProfile user={this.props.user}/>
         <CreateList />
-        <ListContainer />
+        <ListContainer user={this.props.user}/>
 
       </div>
     );
