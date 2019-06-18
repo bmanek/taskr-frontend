@@ -12,20 +12,18 @@ export default class ListContainer extends React.Component{
       form : {
         description: "",
         due: "",
-        priority: "",
-        listId: ''
-      }
+        priority: ""
+      },
+      listId: ''
     }
   }
 
   handleAddTask = (id) => {
     this.setState({
       formDisplay: !this.state.formDisplay,
-      form: {
-        listId: id
+      listId: id
       }
-    })
-  }
+    )}
 
   // componentDidMount(){
   //   fetch('http://localhost:3000/lists')
@@ -44,7 +42,7 @@ export default class ListContainer extends React.Component{
       form: {
         description: event.currentTarget.childNodes[1].value,
         due: event.currentTarget.childNodes[3].value,
-        priority: event.currentTarget.childNodes[5].value,
+        priority: event.currentTarget.childNodes[5].value
       }
     }, ()=>{
       fetch(`http://localhost:3000/tasks`, {
@@ -57,7 +55,7 @@ export default class ListContainer extends React.Component{
           description: this.state.form.description,
           due: this.state.form.due,
           priority: this.state.form.priority,
-          list_id: this.state.form.listId
+          list_id: parseInt(this.state.listId)
         })
       })
       .then(resp => resp.json())
