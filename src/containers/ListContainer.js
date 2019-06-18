@@ -14,7 +14,8 @@ export default class ListContainer extends React.Component{
         due: "",
         priority: ""
       },
-      listId: ''
+      listId: '',
+      createdTask: []
     }
   }
 
@@ -59,20 +60,27 @@ export default class ListContainer extends React.Component{
         })
       })
       .then(resp => resp.json())
-      .then(data => {debugger})
+      .then(newTask => {
+        this.setState({
+          createdTask: newTask
+        })
+      })
     })
-
   }
+
+  // we want to update / re-render the page w/ the new data
+  // This is where the pain began. Problem with handling props and state down
+  // to list.js
 
   renderLists = () => {
     return this.state.lists.map((list) => (
-      <List id={list.id} key={list.id} handleAddTask={this.handleAddTask} listTasks={list} />
+      <List id={list.id} key={list.id} handleAddTask={this.handleAddTask} listTasks={list} newTask={this.state.createdTask}/>
     ))
   }
 
   componentDidMount(){
     this.setState({
-      lists: this.props.user.lists
+      lists: this.props.user.lists,
     })
   }
 
