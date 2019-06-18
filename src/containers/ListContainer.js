@@ -46,10 +46,15 @@ export default class ListContainer extends React.Component{
   }
 
   renderLists = () => {
-    debugger
-    return this.props.user.map((list) => (
+    return this.state.lists.map((list) => (
       <List key={list.id} clickFunction={this.handleAddTask} listTasks={list.tasks} />
     ))
+  }
+
+  componentDidMount(){
+    this.setState({
+      lists: this.props.user.lists
+    })
   }
 
   render(){
