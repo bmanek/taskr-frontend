@@ -8,12 +8,20 @@ export default class List extends Component {
     return(
       <Card>
       <div className='lists'>
-        <h2>{this.props.listTasks.title}</h2>
+
+        <Card.Header><h2>{this.props.listTasks.title}</h2></Card.Header>
           {this.props.tasks.map((list) => {
-            return <Task key={list.id} attributes={list} editTask={this.props.editTask} listId={this.props.listTasks.id}
-            deleteTask={this.props.deleteTask}/>
-          })}
-          <button onClick={()=> {this.props.handleAddTask(this.props.id)}}>Add Task</button>
+            return(
+            <React.Fragment>
+              <Card>
+                <Task key={list.id} attributes={list} editTask={this.props.editTask} listId={this.props.listTasks.id}
+                deleteTask={this.props.deleteTask}/>
+              </Card>
+            </React.Fragment>
+          )})}
+          <Card.Content>
+            <button onClick={()=> {this.props.handleAddTask(this.props.id)}}>Add Task</button>
+          </Card.Content>
       </div>
       </Card>
     )

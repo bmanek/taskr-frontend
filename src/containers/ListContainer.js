@@ -1,6 +1,7 @@
 import React from 'react'
 import List from '../components/List'
 import CreateTaskForm from '../components/CreateTaskForm'
+import { Card, Icon, Image } from 'semantic-ui-react'
 
 export default class ListContainer extends React.Component{
 
@@ -146,10 +147,9 @@ export default class ListContainer extends React.Component{
 
   render(){
     return(
-      <div>
-      This Contains all the Lists
+      <Card.Group>
         {this.state.formDisplay ? <CreateTaskForm removeForm={this.removeForm} handleSubmit={this.handleSubmit} listId={this.state.form.listId} editTask={this.state.editThisTask}/> : this.renderLists()}
-      </div>
+      </Card.Group>
     )
   }
 
