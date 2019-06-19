@@ -39,10 +39,15 @@ export default class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route exact path ='/profile' render={()=> <UserPage user={this.state.user}/>}/>
-          <Route path ='/' render={()=>
-            (this.state.user ? (<Redirect to='/profile'/>
-          ) : (<Login handleLoginInput={this.handleLoginInput} handleSubmit={this.handleSubmit}/>))} />
+          <Route path ='/profile' render={()=> (this.state.user === null? (<Redirect to='/'/>) : <UserPage user={this.state.user}/>)}/>
+
+          {this.state.user !== null?
+            <Route path ='/' render={()=> (<Redirect to='/profile'/>)}/>
+            :
+            <Login handleLoginInput={this.handleLoginInput} handleSubmit={this.handleSubmit}/>}
+
+
+
         </div>
       </Router>
     );

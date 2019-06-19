@@ -8,6 +8,7 @@ export default class ListContainer extends React.Component{
     super()
     this.state = {
       lists: [],
+      allTasks: [],
       formDisplay: false,
       form : {
         description: "",
@@ -15,8 +16,16 @@ export default class ListContainer extends React.Component{
         priority: ""
       },
       listId: '',
-      createdTask: []
+      editThisTask: []
     }
+  }
+
+  componentDidMount(){
+    let tasks = this.props.user.lists.map((list)=> list.tasks).flat()
+    this.setState({
+      lists: this.props.user.lists,
+      allTasks: tasks
+    })
   }
 
   handleAddTask = (id) => {
@@ -26,18 +35,9 @@ export default class ListContainer extends React.Component{
       }
     )}
 
-  // componentDidMount(){
-  //   fetch('http://localhost:3000/lists')
-  //   .then(resp => resp.json())
-  //   .then(listObj => (
-  //     this.setState({
-  //       lists: listObj
-  //     })
-  //   ))
-  // }
-
-  handleSubmit = (event) =>{
+  handleSubmit = (event, id) =>{
     event.preventDefault()
+    if(event.currentTarget.childNodes[6].value==='Submit'){
     this.setState({
       formDisplay: !this.state.formDisplay,
       form: {
@@ -62,31 +62,72 @@ export default class ListContainer extends React.Component{
       .then(resp => resp.json())
       .then(newTask => {
         this.setState({
-          createdTask: newTask
+          allTasks: [...this.state.allTasks, newTask]
+          })
         })
       })
-    })
+    }
+    else if(event.currentTarget.childNodes[6].value==='Edit this Task'){
+      this.setState({
+        formDisplay: !this.state.formDisplay,
+        form: {
+          description: event.currentTarget.childNodes[1].value,
+          due: event.currentTarget.childNodes[3].value,
+          priority: event.currentTarget.childNodes[5].value
+        }
+      }, ()=>{
+        fetch(`http://localhost:3000/tasks/${id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            description: this.state.form.description,
+            due: this.state.form.due,
+            priority: this.state.form.priority,
+            list_id: parseInt(this.state.listId)
+          })
+        })
+        .then(resp=>resp.json())
+        .then(taskObj => {
+          let findObject = this.state.allTasks.find((task)=> task.id===taskObj.id)
+          let currentIndex = this.state.allTasks.indexOf(findObject)
+          let updatedTaskArray = [...this.state.allTasks]
+          updatedTaskArray.splice(currentIndex, 1, taskObj)
+          this.setState({
+            allTasks: updatedTaskArray
+          })
+        })
+      }
+    )
+    }
   }
 
-  // we want to update / re-render the page w/ the new data
-  // This is where the pain began. Problem with handling props and state down
-  // to list.js
+
+  findNewTask = (list_id) => {
+    let associatedTasks = this.state.allTasks.filter((task)=> task.list_id === list_id)
+    return associatedTasks
+  }
 
   renderLists = () => {
     return this.state.lists.map((list) => (
-      <List id={list.id} key={list.id} handleAddTask={this.handleAddTask} listTasks={list} newTask={this.state.createdTask}/>
+      <List id={list.id} key={list.id} handleAddTask={this.handleAddTask} listTasks={list} tasks={this.findNewTask(list.id)} editTask={this.editTask}/>
     ))
   }
 
-  componentDidMount(){
+  editTask = (task, list_id) => {
     this.setState({
-      lists: this.props.user.lists,
+      formDisplay: !this.state.formDisplay,
+      listId: list_id,
+      editThisTask: task
     })
   }
 
   removeForm = () => {
     this.setState({
-      formDisplay: false
+      formDisplay: false,
+      editThisTask: []
     })
   }
 
@@ -94,7 +135,7 @@ export default class ListContainer extends React.Component{
     return(
       <div>
       This Contains all the Lists
-        {this.state.formDisplay ? <CreateTaskForm removeForm={this.removeForm} deleteTask={this.deleteTask} handleSubmit={this.handleSubmit} listId={this.state.form.listId}/> : this.renderLists()}
+        {this.state.formDisplay ? <CreateTaskForm removeForm={this.removeForm} deleteTask={this.deleteTask} handleSubmit={this.handleSubmit} listId={this.state.form.listId} editTask={this.state.editThisTask}/> : this.renderLists()}
       </div>
     )
   }

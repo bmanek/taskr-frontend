@@ -5,10 +5,10 @@ const Task = (props) => {
   return(
     <div className="task card" key={props.key}>
       <br></br>
-      <button>Edit Your Crap!</button>
       <div>Description: {props.attributes.description}</div>
       <div>Due: {props.attributes.due}</div>
       <div>Priority: {props.attributes.priority}</div>
+      <button onClick={()=>{props.editTask(props.attributes, props.listId)}}>Edit Your Crap!</button>
       <button>Delete This Junk!</button>
     </div>
   )
