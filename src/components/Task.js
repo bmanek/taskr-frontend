@@ -9,7 +9,7 @@ const Task = (props) => {
       <div>Due: {props.attributes.due}</div>
       <div>Priority: {props.attributes.priority}</div>
       <button onClick={()=>{props.editTask(props.attributes, props.listId)}}>Edit Your Crap!</button>
-      <button>Delete This Junk!</button>
+      <button onClick={() => props.deleteTask(props.attributes.id)}>Delete This Junk!</button>
     </div>
   )
 }

@@ -112,7 +112,7 @@ export default class ListContainer extends React.Component{
 
   renderLists = () => {
     return this.state.lists.map((list) => (
-      <List id={list.id} key={list.id} handleAddTask={this.handleAddTask} listTasks={list} tasks={this.findNewTask(list.id)} editTask={this.editTask}/>
+      <List id={list.id} key={list.id} handleAddTask={this.handleAddTask} listTasks={list} tasks={this.findNewTask(list.id)} editTask={this.editTask} deleteTask={this.deleteTask}/>
     ))
   }
 
@@ -131,11 +131,24 @@ export default class ListContainer extends React.Component{
     })
   }
 
+  deleteTask = (id) => {
+    let updatedTasks = this.state.allTasks.filter( task =>
+      task.id !== id)
+      this.setState({
+        allTasks: updatedTasks
+      }, () =>
+    fetch(`http://localhost:3000/tasks/${id}`, {
+      method: "DELETE",
+      headers: {"Content-Type":"application/json"
+    }})
+      )
+  }
+
   render(){
     return(
       <div>
       This Contains all the Lists
-        {this.state.formDisplay ? <CreateTaskForm removeForm={this.removeForm} deleteTask={this.deleteTask} handleSubmit={this.handleSubmit} listId={this.state.form.listId} editTask={this.state.editThisTask}/> : this.renderLists()}
+        {this.state.formDisplay ? <CreateTaskForm removeForm={this.removeForm} handleSubmit={this.handleSubmit} listId={this.state.form.listId} editTask={this.state.editThisTask}/> : this.renderLists()}
       </div>
     )
   }
