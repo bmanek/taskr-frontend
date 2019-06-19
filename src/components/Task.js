@@ -16,10 +16,3 @@ const Task = (props) => {
 
 
 export default Task
-
-
-// description: "Paint Pineapple"
-// due: "Before I Die"
-// id: 1
-// list_id: 1
-// priority: "High"
